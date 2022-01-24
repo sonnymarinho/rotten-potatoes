@@ -12,8 +12,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      
       - name: Docker Login
         uses: docker/login-action@v1.12.0
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_PWD }}
+          
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v2.7.0
+        with: 
+          contexts: ./src/
+          file: ./src/Dockerfile
+          push: true
+          tags: |
+            sonnymarinho/rotten-potatoes:latest
+            sonnymarinho/rotten-potatoes:${{ github.run_number }}
