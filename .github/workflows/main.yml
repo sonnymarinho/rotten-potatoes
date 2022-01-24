@@ -22,7 +22,7 @@ jobs:
       - name: Docker Build and Push
         uses: docker/build-push-action@v2.7.0
         with: 
-          contexts: ./src/
+          context: ./src/
           file: ./src/Dockerfile
           push: true
           tags: |
@@ -45,6 +45,6 @@ jobs:
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v1.5
         with:
-          image: sonnymarinho/rotten-potatoes:${{ github.run_number }}
+          images: sonnymarinho/rotten-potatoes:${{ github.run_number }}
           manifests: |
             k8s/deployment.yaml
